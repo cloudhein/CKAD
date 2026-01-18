@@ -1,10 +1,13 @@
 ---
-apiVersion: extensions/v1beta1  # Deprecated
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: broken-app
 spec:
-  replicas: 1
+  replicas: 2 # update the replicas count
+  selector:
+     matchLabels:
+      app: myapp
   template:  # Missing selector
     metadata:
       labels:

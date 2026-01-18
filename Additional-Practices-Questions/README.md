@@ -100,47 +100,6 @@ kubectl rollout status deploy api-server -n default
 
 **Tip:** Use `kubectl explain cronjob.spec` to find the correct field names.
 
-### Solution
-
-```bash
-kubectl apply -f - <<EOF
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: backup-job
-  namespace: default
-spec:
-  schedule: "*/30 * * * *"
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 2
-  jobTemplate:
-    spec:
-      activeDeadlineSeconds: 300
-      template:
-        spec:
-          restartPolicy: Never
-          containers:
-            - name: backup
-              image: busybox:latest
-              command: ["/bin/sh", "-c"]
-              args: ["echo Backup completed"]
-EOF
-```
-
-Verify the CronJob:
-
-```bash
-kubectl get cronjob backup-job
-kubectl describe cronjob backup-job
-```
-
-To test immediately, create a Job from the CronJob:
-
-```bash
-kubectl create job backup-job-test --from=cronjob/backup-job
-kubectl logs job/backup-job-test
-```
-
 **Docs**
 
 - CronJobs: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
@@ -159,39 +118,6 @@ Requirements:
 - Configure RBAC: Create a new ServiceAccount named log-sa in the audit namespace. Configure the necessary Role and RoleBinding (named log-role and log-rb) to grant only the permissions identified in your diagnosis.
 
 - Fix the Pod: Update the log-collector Pod to use this new identity. (Note: You may need to recreate the Pod).
-
-### Solution
-
-**Step 1 – Create ServiceAccount**
-
-```bash
-kubectl create sa log-sa -n audit
-```
-
-**Step 2 – Create Role**
-
-```bash
-kubectl apply -f - <<EOF
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: log-role
-  namespace: audit
-rules:
-  - apiGroups: [""]
-    resources: ["pods"]
-    verbs: ["get", "list", "watch"]
-EOF
-```
-
-**Step 3 – Create RoleBinding**
-
-```bash
-kubectl create rolebinding log-rb \
-  --role=log-role \
-  --serviceaccount=audit:log-sa \
-  -n audit
-```
 
 **Step 4 – Update Pod to use ServiceAccount**
 

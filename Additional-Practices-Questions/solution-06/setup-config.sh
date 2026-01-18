@@ -5,8 +5,7 @@ kubectl create ns production
 
 # 2. Create the Existing Deployment (v1)
 # Starts with 5 replicas (50%)
-kubectl create deployment webapp-v1 --image=nginx:1.14 --replicas=5 -n production
-kubectl label deployment webapp-v1 app=webapp version=v1 --overwrite -n production
+kubectl apply -f webapp-v1.yaml
 
 # 3. Create the Service
 # Selects ONLY 'app=webapp'

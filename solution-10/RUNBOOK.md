@@ -13,7 +13,7 @@ service/php-apache exposed
 
 3. Create a broken manifest file for HPA
 ```bash
-kubectl apply -f hpa.yaml 
+k apply -f broken-hpa-sample.yaml
 error: resource mapping not found for name: "php-apache" namespace: "" from "hpa.yaml": no matches for kind "HorizontalPodAutoscaler" in version "autoscaling/v2beta1"
 ensure CRDs are installed first
 ```

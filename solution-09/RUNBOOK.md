@@ -12,7 +12,7 @@ pod/winter created
 kubectl logs pod/winter > /opt/ckadnov2025/log_Output.txt
 ```
 
-### Setup configuraion for step 3
+### Setup configuraion for step 3 (This is not included in the solution Just a lab setup for the exam)
 
 #### Create a namespace 
 ```bash

@@ -1,0 +1,127 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2026-01-18T15:46:02Z"
+  generation: 1
+  labels:
+    run: metrics-pod
+  name: metrics-pod
+  namespace: monitoring
+  resourceVersion: "38131"
+  uid: 46848b27-4db3-4841-a8e9-8b26452d428f
+spec:
+  containers:
+  - image: nginx:alpine
+    imagePullPolicy: IfNotPresent
+    name: metrics-pod
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-6pth8
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: 133-worker
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: monitor-sa  # Use the correct ServiceAccount
+  serviceAccountName: monitor-sa # Use the correct ServiceAccount
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-6pth8
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2026-01-18T15:46:31Z"
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2026-01-18T15:46:02Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2026-01-18T15:46:31Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2026-01-18T15:46:31Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2026-01-18T15:46:02Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://0804aeb1253c5a940e506567677fbe83c287dd43349d05734505b5c79c24531d
+    image: docker.io/library/nginx:alpine
+    imageID: docker.io/library/nginx@sha256:b0f7830b6bfaa1258f45d94c240ab668ced1b3651c8a222aefe6683447c7bf55
+    lastState: {}
+    name: metrics-pod
+    ready: true
+    resources: {}
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2026-01-18T15:46:30Z"
+    user:
+      linux:
+        gid: 0
+        supplementalGroups:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 6
+        - 10
+        - 11
+        - 20
+        - 26
+        - 27
+        uid: 0
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-6pth8
+      readOnly: true
+      recursiveReadOnly: Disabled
+  hostIP: 172.18.0.3
+  hostIPs:
+  - ip: 172.18.0.3
+  phase: Running
+  podIP: 10.253.3.7
+  podIPs:
+  - ip: 10.253.3.7
+  qosClass: BestEffort
+  startTime: "2026-01-18T15:46:02Z"
