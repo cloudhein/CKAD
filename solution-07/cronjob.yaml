@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: log-cleaner
+  namespace: production
+spec:
+  schedule: "*/30 * * * *"
+  jobTemplate:
+    spec:
+      completions: 2
+      backoffLimit: 3
+      activeDeadlineSeconds: 30
+      template:
+        spec:
+          containers:
+          - name: log
+            image: busybox:1.28
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - date
+          restartPolicy: OnFailure

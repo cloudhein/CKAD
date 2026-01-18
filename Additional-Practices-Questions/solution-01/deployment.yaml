@@ -1,0 +1,19 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      id: api
+  template:
+    metadata:
+      labels:
+        id: api
+    spec:
+      containers:
+      - name: api-server
+        image: busybox
+        command: ['sh', '-c', 'sleep 3600']

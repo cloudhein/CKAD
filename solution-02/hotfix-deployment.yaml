@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotfix-deployment
+  namespace: quetzal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotfix
+  template:
+    metadata:
+      labels:
+        app: hotfix
+    spec:
+      containers:
+      - name: hotfix-container
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80

@@ -1,0 +1,15 @@
+---
+apiVersion: extensions/v1beta1  # Deprecated
+kind: Deployment
+metadata:
+  name: broken-app
+spec:
+  replicas: 2
+  template:  # Missing selector
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: web
+          image: nginx

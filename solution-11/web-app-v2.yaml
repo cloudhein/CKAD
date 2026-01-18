@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-v2
+  namespace: production
+spec:
+  replicas: 5              # 1 Replica (20% of total 5)
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp        # Shared Label
+        version: v2
+    spec:
+      containers:
+      - name: webapp
+        image: nginx:1.22
+        ports:
+        - containerPort: 80
