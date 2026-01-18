@@ -156,9 +156,10 @@ Task:
 
 ### **Question 11: Canary Deployment** (Application Deployment)
 
-An application named webapp has two versions in namespace **production**, an **v1** and **v2**. Both versions must be accessible over Service named **webapp-svc**
+An application named webapp has two versions in namespace `production`, an `v1` and `v2`. Both versions must be accessible over Service named `webapp-svc`
 
-Approximately **80%** of traffic should be routed to **v1** Approximately **20%** of traffic should be routed to **v2**.
-Use only Kubernetes native objects.
-Do not use Ingress, Service Mesh, or external load balancers Configure the required Kubernetes resources to satisfy the above requirements.
+- Approximately `80%` of traffic should be routed to `v1` .
+- Approximately `20%` of traffic should be routed to `v2`.
+- Use only Kubernetes native objects.
+- Do not use Ingress, Service Mesh, or external load balancers Configure the required Kubernetes resources to satisfy the above requirements.
 
