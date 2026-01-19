@@ -25,6 +25,30 @@
 
 
 ---
+<a id="question-1"></a>
+
+## Question 1 – Namespaces
+
+Solve this question on instance: ssh ckad5601
+
+The DevOps team would like to get the list of all Namespaces in the cluster.
+
+The list can contain other columns like STATUS or AGE.
+
+Save the list to /opt/course/1/namespaces on ckad5601
+
+---
+<a id="question-2"></a>
+
+## Question 2 – Pods
+
+Solve this question on instance: `ssh ckad5601`
+
+Create a single Pod of image `httpd:2.4.41-alpine` in Namespace `default`. The Pod should be named pod1 and the container should be named `pod1-container`.
+
+Your manager would like to run a command manually on occasion to output the status of that exact Pod. Please write a command that does this into `/opt/course/2/pod1-status-command.sh` on ckad5601. The command should use kubectl.
+
+---
 <a id="question-3"></a>
 ## Question 3 –  Job
 
